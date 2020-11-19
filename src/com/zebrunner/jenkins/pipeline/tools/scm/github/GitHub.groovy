@@ -68,20 +68,20 @@ class GitHub extends Scm {
             userPassword = context.env.PASSWORD
         }
 
-        logger.info("pr_sha: " + Configuration.get("pr_sha"))
+        def commit= Configuration.get("pr_sha")
 
         def consoleLog = Configuration.get(Configuration.Parameter.JOB_URL) + "/" + Configuration.get(Configuration.Parameter.BUILD_NUMBER) + "/console"
         logger.info("consoleLog: ${consoleLog}")
         
         if (res.equals(BuildResult.FAILURE)) {
             // send to scm that PR checker failed
-            context.curl "https://api.github.com/repos/${userNam}e/carina-demo/statuses/$GIT_COMMIT?access_token=${userPassword}" \
+            context.curl "https://api.github.com/repos/${userName}/carina-demo/statuses/${commit}?access_token=${userPassword}" \
                 -H "Content-Type: application/json" \
                 -X POST \
                 -d "{\"state\": \"failure\",\"context\": \"compilation checker\", \"description\": \"State\", \"target_url\": \"${consoleLog}\"}"
         } else {
             // send to scm that PR checker succeed
-            context.curl "https://api.github.com/repos/${userNam}e/carina-demo/statuses/$GIT_COMMIT?access_token=${userPassword}" \
+            context.curl "https://api.github.com/repos/${userName}/carina-demo/statuses/${commit}?access_token=${userPassword}" \
                 -H "Content-Type: application/json" \
                 -X POST \
                 -d "{\"state\": \"success\",\"context\": \"compilation checker\", \"description\": \"State\", \"target_url\": \"${consoleLog}\"}"
