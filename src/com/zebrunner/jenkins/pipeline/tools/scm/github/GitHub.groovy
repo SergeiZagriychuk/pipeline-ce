@@ -81,7 +81,7 @@ class GitHub extends Scm {
         }
         logger.info("cmdCurl: ${cmdCurl}")
         
-        if (isUnix()) {
+        if (context.isUnix()) {
             context.sh cmdCurl
         } else {
             context.bat cmdCurl
