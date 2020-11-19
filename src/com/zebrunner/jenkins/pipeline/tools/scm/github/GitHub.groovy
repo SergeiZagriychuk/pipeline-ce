@@ -66,10 +66,10 @@ class GitHub extends Scm {
             userPassword = context.env.PASSWORD
         }
 
-        logger.info(webHookArgs().dump())
+        logger.info("pr_sha: " + Configuration.get("pr_sha"))
 
         def consoleLog = Configuration.get(Configuration.Parameter.JOB_URL) + "/" + Configuration.get(Configuration.Parameter.BUILD_NUMBER) + "/console"
-        logger.inf("consoleLog: ${consoleLog}")
+        logger.info("consoleLog: ${consoleLog}")
         
         if (res.equals(BuildResult.FAILURE)) {
             // send to scm that PR checker failed
