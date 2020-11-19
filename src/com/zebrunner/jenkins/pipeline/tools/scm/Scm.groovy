@@ -100,6 +100,11 @@ abstract class Scm implements ISCM {
 			context.checkout getCheckoutParams(this.repoUrl, branchSpec(), ".", true, false, prRefSpec, this.credentialsId)
 		}
 	}
+    
+    public void commentPR(res) {
+        //TODO: investigate which actions should be done to comment PR in gitlab and bitbucket
+        // override methods in apporpriate client implementation or cmbine if api is the same
+    }
 
 	public def clonePush() {
 		context.stage('Checkout Repository') {

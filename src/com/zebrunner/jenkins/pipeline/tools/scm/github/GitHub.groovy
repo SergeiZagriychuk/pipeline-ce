@@ -56,5 +56,34 @@ class GitHub extends Scm {
             [(it.getKey()): it.getValue()]
         }
     }
+    
+    @Override
+    public void commentPR(res) {
+        def userName = ""
+        def userPassword = ""
+        context.withCredentials([context.usernamePassword(credentialsId: this.credentialsId, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+            userName = context.env.USERNAME
+            userPassword = context.env.PASSWORD
+        }
+
+        logger.info(webHookArgs.dump())
+
+        def consoleLog = "${Configuration.get(Configuration.Parameter.JOB_URL)/Configuration.get(Configuration.Parameter.BUILD_NUMBER/console)
+        if (res.equals(BuildResult.FAILURE)) {
+            // send to scm that PR checker failed
+            context.curl "https://api.github.com/repos/${userNam}e/carina-demo/statuses/$GIT_COMMIT?access_token=${userPassword}" \
+                -H "Content-Type: application/json" \
+                -X POST \
+                -d "{\"state\": \"failure\",\"context\": \"compilation checker\", \"description\": \"State\", \"target_url\": \"${consoleLog}\"}"
+        } else {
+            // send to scm that PR checker succeed
+            context.curl "https://api.github.com/repos/${userNam}e/carina-demo/statuses/$GIT_COMMIT?access_token=${userPassword}" \
+                -H "Content-Type: application/json" \
+                -X POST \
+                -d "{\"state\": \"success\",\"context\": \"compilation checker\", \"description\": \"State\", \"target_url\": \"${consoleLog}\"}"
+        }
+    }
+}
+
 
 }

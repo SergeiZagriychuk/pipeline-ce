@@ -40,12 +40,7 @@ public class Runner extends AbstractRunner {
                 this.currentBuild.result = BuildResult.FAILURE
             } finally {
                 // send build status to the PullRequest checker
-                if (this.currentBuild.result.equals(BuildResult.SUCCESS)) {
-                    // send to scm that PR checker succeed
-                } else {
-                    // send to scm that PR checker failed
-                }
-                logger.info("currentBuild.result: " + this.currentBuild.result)
+                getScm().commentPR(this.currentBuild.result)
             }
         }
     }
