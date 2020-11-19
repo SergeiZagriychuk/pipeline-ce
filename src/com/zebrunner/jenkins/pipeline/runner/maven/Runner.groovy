@@ -34,6 +34,9 @@ public class Runner extends AbstractRunner {
             logger.info("Runner->onPullRequest")
             getScm().clonePR()
             compile("-U clean compile test -DskipTests", true)
+            
+            //TODO: identify build status and send result back to SCM
+            logger.info("job status: " + this.currentBuild.result)
         }
     }
 
