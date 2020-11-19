@@ -32,12 +32,17 @@ public class Runner extends AbstractRunner {
     public void onPullRequest() {
         context.node("maven") {
             logger.info("Runner->onPullRequest")
-            getScm().clonePR()
-            compile("-U clean compile test -DskipTests", true)
-            
-            //TODO: identify build status and send result back to SCM
-            logger.info("currentBuild: " + this.currentBuild.dump())
-            logger.info("currentBuild.result: " + this.currentBuild.result)
+            try {
+                getScm().clonePR()
+                compile("-U clean compile test -DskipTests", true)
+            } catch (Exception e) {
+                logger.error("PR checker failed.\n" + e.getMessage())
+                this.currentBuild.result = BuildResult.FAILURE
+            } finally {
+                //TODO: identify build status and send result back to SCM
+                logger.info("currentBuild: " + this.currentBuild.dump())
+                logger.info("currentBuild.result: " + this.currentBuild.result)
+            }
         }
     }
 
