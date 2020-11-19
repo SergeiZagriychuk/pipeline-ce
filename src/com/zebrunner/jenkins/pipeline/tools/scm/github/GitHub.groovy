@@ -85,7 +85,5 @@ class GitHub extends Scm {
                 -d "{\"state\": \"success\",\"context\": \"compilation checker\", \"description\": \"State\", \"target_url\": \"${consoleLog}\"}"
         }
     }
-}
-
 
 }
