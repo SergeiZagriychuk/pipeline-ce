@@ -37,11 +37,14 @@ public class Runner extends AbstractRunner {
                 getScm().clonePR()
                 compile("-U clean compile test -DskipTests", true)
             } catch (Exception e) {
-                logger.error("PR checker failed.\n" + e.getMessage())
                 this.currentBuild.result = BuildResult.FAILURE
             } finally {
-                //TODO: identify build status and send result back to SCM
-                logger.info("currentBuild: " + this.currentBuild.dump())
+                // send build status to the PullRequest checker
+                if (this.currentBuild.result.equals(BuildResult.SUCCESS)) {
+                    // send to scm that PR checker succeed
+                } else {
+                    // send to scm that PR checker failed
+                }
                 logger.info("currentBuild.result: " + this.currentBuild.result)
             }
         }
