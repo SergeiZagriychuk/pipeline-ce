@@ -7,6 +7,7 @@ import com.zebrunner.jenkins.pipeline.runner.AbstractRunner
 import com.zebrunner.jenkins.pipeline.Configuration
 
 import static com.zebrunner.jenkins.Utils.*
+import static com.zebrunner.jenkins.pipeline.Executor.*
 
 public class Runner extends AbstractRunner {
 
