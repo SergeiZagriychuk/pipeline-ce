@@ -36,7 +36,7 @@ public class Runner extends AbstractRunner {
             compile("-U clean compile test -DskipTests", true)
             
             //TODO: identify build status and send result back to SCM
-            logger.info("job status: " + this.currentBuild.result)
+            logger.info("currentBuild: " + this.currentBuild.dump())
         }
     }
 

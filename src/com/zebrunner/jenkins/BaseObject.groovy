@@ -53,7 +53,7 @@ public abstract class BaseObject {
         this.repo = initRepo(this.repoUrl)
         
         this.zebrunnerPipeline = "Zebrunner-CE@" + Configuration.get(Configuration.Parameter.ZEBRUNNER_VERSION)
-        currentBuild = context.currentBuild
+        this.currentBuild = context.currentBuild
         
         // get scmType from build args otherwise default to github
         def String gitType = Configuration.get("scmType") ? Configuration.get("scmType") : "github"
