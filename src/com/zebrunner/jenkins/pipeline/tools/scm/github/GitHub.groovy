@@ -3,6 +3,8 @@ package com.zebrunner.jenkins.pipeline.tools.scm.github
 import com.zebrunner.jenkins.pipeline.tools.scm.Scm
 import com.zebrunner.jenkins.pipeline.Configuration
 
+import static com.zebrunner.jenkins.pipeline.Executor.*
+
 class GitHub extends Scm {
 
     GitHub(context) {
