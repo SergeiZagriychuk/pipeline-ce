@@ -73,17 +73,11 @@ class GitHub extends Scm {
         def consoleLog = Configuration.get(Configuration.Parameter.JOB_URL) + "/" + Configuration.get(Configuration.Parameter.BUILD_NUMBER) + "/console"
         logger.info("consoleLog: ${consoleLog}")
         
-        def cmdCurl = "curl https://api.github.com/repos/${userName}/carina-demo/statuses/${commit}?access_token=${userPassword}" \
-                " -H \"Content-Type: application/json\"" \
-                " -X POST" \
-                " -d {\"state\": \"success\",\"context\": \"compilation checker\", \"description\": \"State\", \"target_url\": \"${consoleLog}\"}"
+        def cmdCurl = "curl https://api.github.com/repos/${userName}/carina-demo/statuses/${commit}?access_token=${userPassword}  -H \"Content-Type: application/json\" -X POST -d {\"state\": \"success\",\"context\": \"compilation checker\", \"description\": \"State\", \"target_url\": \"${consoleLog}\"}"
                 
         if (res.equals(BuildResult.FAILURE)) {
             // send to scm that PR checker failed
-            cmdCurl = "curl https://api.github.com/repos/${userName}/carina-demo/statuses/${commit}?access_token=${userPassword}" \
-                " -H \"Content-Type: application/json\"" \
-                " -X POST" \
-                " -d {\"state\": \"failure\",\"context\": \"compilation checker\", \"description\": \"State\", \"target_url\": \"${consoleLog}\"}"
+            cmdCurl = "curl https://api.github.com/repos/${userName}/carina-demo/statuses/${commit}?access_token=${userPassword}  -H \"Content-Type: application/json\" -X POST -d {\"state\": \"failure\",\"context\": \"compilation checker\", \"description\": \"State\", \"target_url\": \"${consoleLog}\"}"
         }
         logger.info("cmdCurl: ${cmdCurl}")
         
