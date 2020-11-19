@@ -68,7 +68,9 @@ class GitHub extends Scm {
 
         logger.info(webHookArgs.dump())
 
-        def consoleLog = "${Configuration.get(Configuration.Parameter.JOB_URL)/Configuration.get(Configuration.Parameter.BUILD_NUMBER/console)
+        def consoleLog = Configuration.get(Configuration.Parameter.JOB_URL) + "/" + Configuration.get(Configuration.Parameter.BUILD_NUMBER) + "/console"
+        logger.inf("consoleLog: ${consoleLog}")
+        
         if (res.equals(BuildResult.FAILURE)) {
             // send to scm that PR checker failed
             context.curl "https://api.github.com/repos/${userNam}e/carina-demo/statuses/$GIT_COMMIT?access_token=${userPassword}" \
